@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace twozerofoureight
 {
@@ -40,9 +41,60 @@ namespace twozerofoureight
             return board;
         }
 
+        
+        /// <summary>
+        /// check full board and can't move (Game Over)
+        /// </summary>
+        /// <param name="board"></param>
+        /// <returns></returns>
+        public Boolean isGameOver()
+        {
+            for(int x = 0 ; x < 5 ; x++)
+            {
+                for(int y = 0 ; y < 5 ; y++)
+                {   
+                    if( x == 4)
+                    {
+                        if(board[x,y] == board[x, y + 1])
+                        {
+                            return false;
+                        }
+                    }
+                    if( y == 4 )
+                    {
+                        if(board[x,y] == board[x + 1, y])
+                        {
+                            return false;
+                        }
+                    }else if( board[x,y] == board[x, y + 1] || board[x,y] == board[x+1,y])
+                    {
+                        return false;
+                    }
+                }
+            }
+            MessageBox.Show("GameOver");
+            return true;
+        } 
+
+        /// <summary>
+        /// check every score in board != 0 (full board)
+        /// </summary>
+        /// <returns></returns>
+        public Boolean isfull()
+        {
+            foreach(int score in board)
+            {
+                if(score == 0)
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
         private void AddRandomSlot()
         {
-            while (true)
+            //fix stop screen
+            while (!isfull())
             {
                 int x = rand.Next(boardSize);
                 int y = rand.Next(boardSize);
