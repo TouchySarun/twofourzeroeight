@@ -49,23 +49,26 @@ namespace twozerofoureight
         /// <returns></returns>
         public Boolean isGameOver()
         {
-            for(int x = 0 ; x < 5 ; x++)
+            for(int x = 0 ; x < 4 ; x++)
             {
-                for(int y = 0 ; y < 5 ; y++)
-                {   
-                    if( x == 4)
+                for (int y = 0; y < 4; y++)
+                {
+                    if (x == 3 || y == 3 )
                     {
-                        if(board[x,y] == board[x, y + 1])
+                        if(x == 3 && y != 3)
                         {
-                            return false;
+                            if(board[x,y] == board[x, y + 1])
+                            {
+                                return false;
+                            }
                         }
-                    }
-                    if( y == 4 )
-                    {
-                        if(board[x,y] == board[x + 1, y])
+                        if ( y == 3 && x != 3)
                         {
-                            return false;
-                        }
+                            if(board[x,y] == board[x + 1, y])
+                            {
+                                return false;
+                            }
+                        } 
                     }else if( board[x,y] == board[x, y + 1] || board[x,y] == board[x+1,y])
                     {
                         return false;
@@ -103,7 +106,9 @@ namespace twozerofoureight
                     board[x, y] = 2;
                     return;
                 }
+
             }
+
         }
 
         // Perform shift and merge to the left of the given array.
@@ -138,6 +143,10 @@ namespace twozerofoureight
                         pos++;
                     }
                 }
+            }
+            if (isfull())
+            {
+                isGameOver();
             }
             return changed;
         }
